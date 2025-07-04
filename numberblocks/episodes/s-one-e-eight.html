@@ -1,9 +1,9 @@
-\<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Миниплеер без интерфейса</title>
+  <title>Миниплеер эпизода</title>
   <style>
     body {
       background: #565656;
@@ -21,19 +21,29 @@
       overflow: hidden;
       box-shadow: 0 0 20px rgba(0,0,0,80);
       background-color: #000;
+      width: 90vw; /* Занимает 90% ширины экрана */
+      max-width: 720px; /* Максимальная ширина как у оригинального плеера */
     }
 
-    video {
+    .player-wrapper:before {
+      content: "";
+      display: block;
+      padding-top: 56.25%; /* Соотношение сторон 16:9 (9/16 = 0.5625) */
+    }
+
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      border: none;
     }
   </style>
 </head>
 <body>
-
   <div class="player-wrapper">
-    <iframe width="720" height="405" src="https://rutube.ru/play/embed/026eecb4842e427a177f82d29b81a81e/?skinColor=00cbff" frameBorder="0" allow="clipboard-write; autoplay" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>  </div>
+    <iframe src="https://rutube.ru/play/embed/026eecb4842e427a177f82d29b81a81e/?skinColor=00cbff" allow="clipboard-write; autoplay" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
   </div>
 </body>
 </html>
