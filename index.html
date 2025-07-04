@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>English For Kids | Fun Learning for Kids</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&family=Fredoka+One&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+  <link rel="icon" href="static/favicon.ico" type="image/x-icon">
+  <style>
+    :root {
+      --primary: #FF6B6B;
+      --primary-light: #FF9E9E;
+      --secondary: #4ECDC4;
+      --secondary-light: #7FE0D9;
+      --accent: #FFE66D;
+      --accent-dark: #FFD700;
+      --dark: #292F36;
+      --dark-light: #3D4752;
+      --light: #F7FFF7;
+      --white: #FFFFFF;
+      --shadow: 0 4px 6px rgba(0,0,0,0.1);
+      --shadow-hover: 0 8px 15px rgba(0,0,0,0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f0f9ff, #e0f7fa);
+      min-height: 100vh;
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* Animated Background Elements */
+    .bubble {
+      position: fixed;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.6);
+      z-index: -1;
+      animation: floatBubble 15s infinite ease-in-out;
+    }
+
+    @keyframes floatBubble {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      25% { transform: translateY(-100px) translateX(50px); }
+      50% { transform: translateY(-50px) translateX(100px); }
+      75% { transform: translateY(-150px) translateX(-50px); }
+    }
+
+    /* Header with Sticky Navigation */
+    header {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      height: 90px;
+      padding: 0 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled .logo-container {
+      transform: scale(0.9);
+    }
+
+    header img.site-logo {
+      width: 65px;
+      height: auto;
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border-radius: 15px;
+    }
+
+    header img.site-logo:hover {
+      transform: rotate(15deg) scale(1.1);
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .nav-link {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1rem;
+      color: var(--dark);
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 70%;
+      left: 15%;
+    }
+
+    .social-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      padding: 5px;
+      background: rgba(255,255,255,0.3);
+      box-shadow: var(--shadow);
+    }
+
+    .social-icon:hover {
+      transform: scale(1.15) rotate(15deg);
+      background: rgba(255,255,255,0.6);
+      box-shadow: var(--shadow-hover);
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 5rem 2rem 3rem;
+      position: relative;
+      overflow: hidden;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .floating {
+      position: absolute;
+      z-index: -1;
+      animation: float 15s infinite ease-in-out;
+      filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+      opacity: 0.8;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-30px) rotate(10deg); }
+    }
+
+    .floating.a { top: 10%; left: 5%; animation-delay: 0s; }
+    .floating.b { top: 30%; right: 10%; animation-delay: 2s; }
+
+    .hero h2 {
+      font-size: 3rem;
+      color: var(--dark);
+      margin-bottom: 1.5rem;
+      font-family: 'Fredoka One', cursive;
+      line-height: 1.2;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      color: var(--dark-light);
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      line-height: 1.6;
+    }
+
+    .highlight {
+      background: linear-gradient(to right, #FF6B6BFF, #4ECDC4FF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+      position: relative;
+      display: inline-block;
+    }
+
+    .highlight::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(to right, #FF6B6BFF, #4ECDC4FF);
+      border-radius: 2px;
+      transform: scaleX(0.9);
+    }
+
+    /* Interactive Buttons */
+    .buttons {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .btn {
+      padding: 1.2rem 2.5rem;
+      font-family: 'Fredoka One', cursive;
+      border: none;
+      border-radius: 20px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: white;
+      box-shadow: var(--shadow);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      min-width: 220px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0));
+      z-index: -1;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .btn:hover::before {
+      background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(255,255,255,0.1));
+    }
+
+    .btn .icon {
+      margin-right: 10px;
+      font-size: 1.4rem;
+    }
+
+    .numberblocks {
+      background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+    }
+
+    /* Features Section */
+    .features {
+      padding: 5rem 2rem;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(5px);
+      margin: 4rem 0;
+    }
+
+    .features-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .feature-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+      text-align: center;
+      border: 2px solid rgba(255,255,255,0.5);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--primary-light);
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .feature-title {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+
+    .feature-desc {
+      color: var(--dark-light);
+      line-height: 1.6;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .testimonial-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .testimonial-slide {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: var(--shadow);
+      margin: 0 1rem;
+      position: relative;
+      display: none;
+    }
+
+    .testimonial-slide.active {
+      display: block;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .testimonial-slide::before {
+      content: '"';
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 5rem;
+      color: rgba(78, 205, 196, 0.1);
+      font-family: serif;
+      line-height: 1;
+    }
+
+    .testimonial-text {
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--dark-light);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .testimonial-author {
+      font-family: 'Fredoka One', cursive;
+      color: var(--primary);
+    }
+
+    .testimonial-rating {
+      color: var(--accent-dark);
+      margin-bottom: 1rem;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: var(--light);
+      padding: 4rem 2rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+    }
+
+    .footer-column h3 {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--accent);
+      position: relative;
+      display: inline-block;
+    }
+
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 3px;
+    }
+
+    .footer-links {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-links a {
+      color: var(--light);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+      transform: translateX(5px);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .footer-social img {
+      width: 40px;
+      height: 40px;
+      transition: all 0.3s ease;
+    }
+
+    .footer-social img:hover {
+      transform: scale(1.1) rotate(10deg);
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+    }
+
+    .warning {
+      font-family: 'Fredoka One', cursive;
+      font-size: 0.9rem;
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      color: rgb(255, 230, 109);
+    }
+
+    /* Floating Action Button */
+    .fab {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .fab:hover {
+      transform: scale(1.1) rotate(15deg);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+    }
+
+    .fab i {
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .hero h2 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        height: auto;
+        padding: 1.5rem;
+      }
+
+      .logo-container {
+        margin-bottom: 1rem;
+      }
+
+      nav {
+        margin-top: 1rem;
+      }
+
+      .hero {
+        padding: 3rem 1.5rem 2rem;
+      }
+
+      .hero h2 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+
+      .buttons {
+        gap: 1rem;
+      }
+
+      .btn {
+        padding: 1rem 1.8rem;
+        font-size: 1rem;
+        min-width: 180px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .nav-link {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+      }
+
+      .social-icon {
+        width: 36px;
+        height: 36px;
+      }
+
+      .hero h2 {
+        font-size: 1.8rem;
+      }
+
+      .floating {
+        display: none;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<!-- Animated Background Bubbles -->
+<div class="bubble" style="width: 100px; height: 100px; top: 20%; left: 10%;"></div>
+<div class="bubble" style="width: 150px; height: 150px; top: 60%; right: 15%;"></div>
+<div class="bubble" style="width: 80px; height: 80px; bottom: 10%; left: 20%;"></div>
+
+<!-- Header with Navigation -->
+<header id="mainHeader">
+  <div class="logo-container">
+    <img src="static/logo.png" alt="English For Kids Logo" class="site-logo">
+    <h2>English For <span class="highlight">Kids</span></h2>
+  </div>
+  <nav>
+    <a href="#features" class="nav-link">Features</a>
+    <a href="#testimonials" class="nav-link">Reviews</a>
+    <a href="https://rutube.ru/channel/39522820/" target="_blank">
+      <img src="static/rutube.png" alt="Rutube Logo" class="social-icon">
+    </a>
+    <a href="https://t.me/EnglishForKidsVideoBot" target="_blank">
+      <img src="static/telegram.png" alt="Telegram Logo" class="social-icon">
+    </a>
+  </nav>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+  <img src="https://img.icons8.com/color/96/000000/abc.png" class="floating a">
+  <img src="https://img.icons8.com/color/96/000000/cat.png" class="floating b">
+
+  <h2>Embark on an <span class="highlight">English For Kids</span> <br>Where Learning Feels Like Play!</h2>
+  <p>Discover a magical world where kids learn English through interactive videos designed by language experts.</p>
+
+  <div class="buttons">
+    <a href="numberblocks/index.html" class="btn numberblocks">
+      <i class="fas fa-cubes icon"></i> Numberblocks
+    </a>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features" id="features">
+  <div class="features-container">
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-magic"></i>
+      </div>
+      <h3 class="feature-title">Interactive Learning</h3>
+      <p class="feature-desc">The lessons we have put together use gamification to keep children engaged while they learn vocabulary, grammar and pronunciation.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-child"></i>
+      </div>
+      <h3 class="feature-title">Age-Appropriate</h3>
+      <p class="feature-desc">The content we have collected is carefully selected for different age groups: from preschoolers to elementary school students.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials" id="testimonials">
+  <h2 style="font-size: 2.5rem; margin-bottom: 3rem;">What Parents <span class="highlight">Say</span></h2>
+
+  <div class="testimonial-container">
+    <!-- Positive Testimonials -->
+    <div class="testimonial-slide">
+      <div class="testimonial-rating">
+        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+      </div>
+      <p class="testimonial-text">My 11-year-old asks to "play English" every day! The Numberblocks section has helped her learn counting in English faster than I ever imagined.</p>
+      <p class="testimonial-author">— Irina L., Stupino</p>
+    </div>
+
+    <div class="testimonial-slide">
+      <div class="testimonial-rating">
+        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+      </div>
+      <p class="testimonial-text">My 5-year-old was afraid of English lessons at kindergarten, but after discovering your videos, he's now the most active in class! The colorful animations and simple explanations work wonders.</p>
+      <p class="testimonial-author">— Olga K., St. Petersburg</p>
+    </div>
+
+    <div class="testimonial-slide">
+      <div class="testimonial-rating">
+        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+      </div>
+      <p class="testimonial-text">As an English teacher, I recommend this to all my students' parents. The way complex concepts are broken down into child-friendly chunks is exceptional. My own kids love it too!</p>
+      <p class="testimonial-author">— Elena S., Novosibirsk</p>
+    </div>
+
+    <div class="testimonial-slide">
+      <div class="testimonial-rating">
+        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+      </div>
+      <p class="testimonial-text">We've tried many English apps, but this one stands out. My twins (7 years old) actually argue over who gets to choose the next video! Would love to see more advanced content for older kids.</p>
+      <p class="testimonial-author">— Dmitry P., Kazan</p>
+    </div>
+
+    <!-- Constructive Feedback -->
+    <div class="testimonial-slide">
+      <div class="testimonial-rating">
+        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+      </div>
+      <p class="testimonial-text">Great concept and my daughter enjoys the videos. However, we sometimes experience buffering issues with the videos. Also, it would be helpful to have progress tracking for parents to monitor learning.</p>
+      <p class="testimonial-author">— Anna M., Yekaterinburg</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-column">
+      <h3>English For Kids</h3>
+      <p>Making English learning fun, interactive, and effective for children worldwide since 2025.</p>
+      <div class="footer-social">
+        <a href="https://rutube.ru/channel/39522820/" target="_blank">
+          <img src="static/rutube.png" alt="Rutube Logo" class="social-icon">
+        </a>
+        <a href="https://t.me/EnglishForKidsVideoBot" target="_blank">
+          <img src="static/telegram.png" alt="Telegram Logo" class="social-icon">
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-column">
+      <h3>Quick Links</h3>
+      <ul class="footer-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>Learning Categories</h3>
+      <ul class="footer-links">
+        <li><a href="numberblocks/index.html">Numberblocks</a></li>
+      </ul>
+    </div>
+  </div>
+  <h2></h2>
+  <div class="warning">
+    The lessons we have collected were not created by us! These are all just videos from different sources, collected together (official source sites were attached to the materials!!)
+    And accordingly we are not responsible for them
+  </div>
+  <div class="copyright">
+    © 2025 English For Kids. All rights reserved. Made with <i class="fas fa-heart" style="color: #FF6B6B;"></i> for kids everywhere.
+  </div>
+</footer>
+
+<script>
+  // Header scroll effect
+  window.addEventListener('scroll', function() {
+    const header = document.getElementById('mainHeader');
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+
+  // Create dynamic bubbles
+  function createBubbles() {
+    const colors = ['rgba(255, 107, 107, 0.1)', 'rgba(78, 205, 196, 0.1)', 'rgba(255, 230, 109, 0.1)'];
+    const body = document.body;
+
+    for (let i = 0; i < 10; i++) {
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+
+      const size = Math.random() * 100 + 50;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+
+      bubble.style.width = `${size}px`;
+      bubble.style.height = `${size}px`;
+      bubble.style.background = color;
+      bubble.style.top = `${Math.random() * 100}%`;
+      bubble.style.left = `${Math.random() * 100}%`;
+      bubble.style.animationDuration = `${Math.random() * 20 + 10}s`;
+      bubble.style.animationDelay = `${Math.random() * 5}s`;
+
+      body.appendChild(bubble);
+    }
+  }
+
+  // Testimonial rotation
+  function rotateTestimonials() {
+    const testimonials = document.querySelectorAll('.testimonial-slide');
+    let current = 0;
+
+    // Show first testimonial
+    testimonials[0].classList.add('active');
+
+    // Rotate every 5 seconds
+    setInterval(() => {
+      testimonials[current].classList.remove('active');
+      current = (current + 1) % testimonials.length;
+      testimonials[current].classList.add('active');
+    }, 5000);
+  }
+
+  // Randomize testimonial order on page load
+  function randomizeTestimonials() {
+    const container = document.querySelector('.testimonial-container');
+    const testimonials = Array.from(document.querySelectorAll('.testimonial-slide'));
+
+    // Shuffle array
+    for (let i = testimonials.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [testimonials[i], testimonials[j]] = [testimonials[j], testimonials[i]];
+    }
+
+    // Reappend shuffled testimonials
+    testimonials.forEach(testimonial => container.appendChild(testimonial));
+  }
+
+  // Initialize everything
+  document.addEventListener('DOMContentLoaded', function() {
+    createBubbles();
+    randomizeTestimonials();
+    rotateTestimonials();
+  });
+</script>
+</body>
+</html>
