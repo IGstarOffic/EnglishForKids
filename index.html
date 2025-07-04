@@ -4,9 +4,13 @@
   <meta charset="UTF-8">
   <title>English For Kids | Fun Learning for Kids</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Блокировка тёмной темы -->
+  <meta name="color-scheme" content="light only">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&family=Fredoka+One&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
   <link rel="icon" href="static/favicon.ico" type="image/x-icon">
   <style>
+    /* Глобальные настройки светлой темы */
     :root {
       --primary: #FF6B6B;
       --primary-light: #FF9E9E;
@@ -20,6 +24,23 @@
       --white: #FFFFFF;
       --shadow: 0 4px 6px rgba(0,0,0,0.1);
       --shadow-hover: 0 8px 15px rgba(0,0,0,0.2);
+      
+      /* Блокировка тёмной темы */
+      color-scheme: light only;
+    }
+
+    /* Принудительная светлая тема */
+    html, body {
+      background: white !important;
+      color: #292F36 !important;
+      forced-color-adjust: none;
+      -webkit-text-fill-color: initial !important;
+    }
+
+    /* Отключение фильтров тёмной темы */
+    html {
+      filter: none !important;
+      -webkit-filter: none !important;
     }
 
     * {
@@ -30,13 +51,13 @@
       font-family: 'Quicksand', sans-serif;
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #f0f9ff, #e0f7fa);
+      background: linear-gradient(135deg, #f0f9ff, #e0f7fa) !important;
       min-height: 100vh;
-      color: var(--dark);
+      color: var(--dark) !important;
       overflow-x: hidden;
     }
 
-    /* Animated Background Elements */
+    /* Animated Background Bubbles */
     .bubble {
       position: fixed;
       border-radius: 50%;
@@ -54,7 +75,7 @@
 
     /* Header with Sticky Navigation */
     header {
-      background: rgba(255, 255, 255, 0.98);
+      background: rgba(255, 255, 255, 0.98) !important;
       backdrop-filter: blur(10px);
       box-shadow: var(--shadow);
       height: 90px;
@@ -99,7 +120,7 @@
     .nav-link {
       font-family: 'Fredoka One', cursive;
       font-size: 1rem;
-      color: var(--dark);
+      color: var(--dark) !important;
       text-decoration: none;
       padding: 0.5rem 1rem;
       border-radius: 20px;
@@ -108,7 +129,7 @@
     }
 
     .nav-link:hover {
-      color: var(--primary);
+      color: var(--primary) !important;
       transform: translateY(-2px);
     }
 
@@ -173,7 +194,7 @@
 
     .hero h2 {
       font-size: 3rem;
-      color: var(--dark);
+      color: var(--dark) !important;
       margin-bottom: 1.5rem;
       font-family: 'Fredoka One', cursive;
       line-height: 1.2;
@@ -182,7 +203,7 @@
 
     .hero p {
       font-size: 1.3rem;
-      color: var(--dark-light);
+      color: var(--dark-light) !important;
       max-width: 700px;
       margin: 0 auto 3rem;
       line-height: 1.6;
@@ -225,7 +246,7 @@
       border-radius: 20px;
       font-size: 1.2rem;
       cursor: pointer;
-      color: white;
+      color: white !important;
       box-shadow: var(--shadow);
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       position: relative;
@@ -272,7 +293,7 @@
     /* Features Section */
     .features {
       padding: 5rem 2rem;
-      background: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.7) !important;
       backdrop-filter: blur(5px);
       margin: 4rem 0;
     }
@@ -286,7 +307,7 @@
     }
 
     .feature-card {
-      background: var(--white);
+      background: var(--white) !important;
       border-radius: 20px;
       padding: 2rem;
       box-shadow: var(--shadow);
@@ -313,11 +334,11 @@
       font-family: 'Fredoka One', cursive;
       font-size: 1.5rem;
       margin-bottom: 1rem;
-      color: var(--dark);
+      color: var(--dark) !important;
     }
 
     .feature-desc {
-      color: var(--dark-light);
+      color: var(--dark-light) !important;
       line-height: 1.6;
     }
 
@@ -334,7 +355,7 @@
     }
 
     .testimonial-slide {
-      background: var(--white);
+      background: var(--white) !important;
       border-radius: 20px;
       padding: 2.5rem;
       box-shadow: var(--shadow);
@@ -367,25 +388,25 @@
     .testimonial-text {
       font-size: 1.2rem;
       font-style: italic;
-      color: var(--dark-light);
+      color: var(--dark-light) !important;
       margin-bottom: 1.5rem;
       line-height: 1.6;
     }
 
     .testimonial-author {
       font-family: 'Fredoka One', cursive;
-      color: var(--primary);
+      color: var(--primary) !important;
     }
 
     .testimonial-rating {
-      color: var(--accent-dark);
+      color: var(--accent-dark) !important;
       margin-bottom: 1rem;
     }
 
     /* Footer */
     footer {
-      background: var(--dark);
-      color: var(--light);
+      background: var(--dark) !important;
+      color: var(--light) !important;
       padding: 4rem 2rem 2rem;
       position: relative;
       overflow: hidden;
@@ -403,7 +424,7 @@
       font-family: 'Fredoka One', cursive;
       font-size: 1.5rem;
       margin-bottom: 1.5rem;
-      color: var(--accent);
+      color: var(--accent) !important;
       position: relative;
       display: inline-block;
     }
@@ -429,14 +450,14 @@
     }
 
     .footer-links a {
-      color: var(--light);
+      color: var(--light) !important;
       text-decoration: none;
       transition: all 0.3s ease;
       display: inline-block;
     }
 
     .footer-links a:hover {
-      color: var(--accent);
+      color: var(--accent) !important;
       transform: translateX(5px);
     }
 
@@ -461,7 +482,7 @@
       margin-top: 3rem;
       padding-top: 2rem;
       border-top: 1px solid rgba(255,255,255,0.1);
-      color: rgba(255,255,255,0.7);
+      color: rgba(255,255,255,0.7) !important;
       font-size: 0.9rem;
     }
 
@@ -471,7 +492,7 @@
       text-align: center;
       margin-top: 3rem;
       padding-top: 2rem;
-      color: rgb(255, 230, 109);
+      color: rgb(255, 230, 109) !important;
     }
 
     /* Floating Action Button */
@@ -498,7 +519,7 @@
     }
 
     .fab i {
-      color: white;
+      color: white !important;
       font-size: 1.5rem;
     }
 
