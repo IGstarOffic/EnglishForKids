@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Numberblocks | RuTube | NotOfficial</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&family=Fredoka+One&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+  <link rel="icon" href="static/favicon.ico" type="image/x-icon">
+  <style>
+    :root {
+      --primary: #d20000;
+      --primary-light: #ff6b6b;
+      --secondary: #1e88e5;
+      --secondary-light: #6CE0D7;
+      --accent: #FFE66D;
+      --accent-dark: #FFD700;
+      --dark: #292F36;
+      --dark-light: #3D4752;
+      --light: #F7FFF7;
+      --white: #FFFFFF;
+      --shadow: 0 4px 6px rgba(0,0,0,0.1);
+      --shadow-hover: 0 8px 15px rgba(0,0,0,0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #ffdee9, #b5fffc);
+      min-height: 100vh;
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* Animated Background Elements */
+    .bubble {
+      position: fixed;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.6);
+      z-index: -1;
+      animation: floatBubble 15s infinite ease-in-out;
+    }
+
+    @keyframes floatBubble {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      25% { transform: translateY(-100px) translateX(50px); }
+      50% { transform: translateY(-50px) translateX(100px); }
+      75% { transform: translateY(-150px) translateX(-50px); }
+    }
+
+    /* Header with Sticky Navigation */
+    header {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      height: 90px;
+      padding: 0 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled .logo-container {
+      transform: scale(0.9);
+    }
+
+    header img.site-logo {
+      width: 65px;
+      height: auto;
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border-radius: 15px;
+    }
+
+    header img.site-logo:hover {
+      transform: rotate(15deg) scale(1.1);
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .nav-link {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1rem;
+      color: var(--dark);
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 70%;
+      left: 15%;
+    }
+
+    .social-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      padding: 5px;
+      background: rgba(255,255,255,0.3);
+      box-shadow: var(--shadow);
+    }
+
+    .social-icon:hover {
+      transform: scale(1.15) rotate(15deg);
+      background: rgba(255,255,255,0.6);
+      box-shadow: var(--shadow-hover);
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 5rem 2rem 3rem;
+      position: relative;
+      overflow: hidden;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .hero h2 {
+      font-size: 2.5rem;
+      color: var(--dark);
+      margin-bottom: 1.5rem;
+      font-family: 'Fredoka One', cursive;
+      line-height: 1.2;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      color: var(--dark-light);
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      line-height: 1.6;
+    }
+
+    .highlight {
+      background: linear-gradient(to right, #FF6B6BFF, #4ECDC4FF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+      position: relative;
+      display: inline-block;
+    }
+
+    .highlight::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(to right, #FF6B6BFF, #4ECDC4FF);
+      border-radius: 2px;
+      transform: scaleX(0.9);
+    }
+
+    /* Season Buttons */
+    .season-buttons {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .season-buttons button {
+      padding: 1.2rem 2rem;
+      font-family: 'Fredoka One', cursive;
+      border: none;
+      border-radius: 20px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      color: white;
+      box-shadow: var(--shadow);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      min-width: 150px;
+      text-align: center;
+      z-index: 1;
+    }
+
+    .season-buttons button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0));
+      z-index: -1;
+      transition: all 0.3s ease;
+    }
+
+    .season-buttons button:hover {
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .season-buttons button:hover::before {
+      background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(255,255,255,0.1));
+    }
+
+    .level1 {
+      background: linear-gradient(135deg, #e53935, #ff6b6b);
+    }
+    .level2 {
+      background: linear-gradient(135deg, #fb8c00, #ffa34d);
+    }
+    .level3 {
+      background: linear-gradient(135deg, #fdd835, #FFE66D);
+      color: #333 !important;
+    }
+    .level4 {
+      background: linear-gradient(135deg, #43a047, #4ECDC4);
+    }
+    .level5 {
+      background: linear-gradient(135deg, #1e88e5, #6CE0D7);
+    }
+
+    /* Episodes Section */
+    .episodes-wrapper {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      padding: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .episode {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      width: 320px;
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      border: 2px solid rgba(255,255,255,0.5);
+    }
+
+    .episode:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--primary-light);
+    }
+
+    .episode img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .episode:hover img {
+      transform: scale(1.05);
+    }
+
+    .episode-title {
+      padding: 1.5rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary);
+      font-family: 'Fredoka One', cursive;
+      position: relative;
+    }
+
+    .episode-title::after {
+      content: '';
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    .episode:hover .episode-title::after {
+      width: 100px;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: var(--light);
+      padding: 4rem 2rem 2rem;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .footer-links a {
+      color: var(--light);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-family: 'Fredoka One', cursive;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+    }
+
+    .warning {
+      font-family: 'Fredoka One', cursive;
+      font-size: 0.9rem;
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      color: var(--accent);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .hero h2 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        height: auto;
+        padding: 1.5rem;
+      }
+
+      .logo-container {
+        margin-bottom: 1rem;
+      }
+
+      nav {
+        margin-top: 1rem;
+      }
+
+      .hero {
+        padding: 3rem 1.5rem 2rem;
+      }
+
+      .season-buttons {
+        gap: 1rem;
+      }
+
+      .season-buttons button {
+        padding: 1rem 1.5rem;
+        min-width: 120px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .nav-link {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+      }
+
+      .hero h2 {
+        font-size: 1.8rem;
+      }
+
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<!-- Animated Background Bubbles -->
+<div class="bubble" style="width: 100px; height: 100px; top: 20%; left: 10%;"></div>
+<div class="bubble" style="width: 150px; height: 150px; top: 60%; right: 15%;"></div>
+<div class="bubble" style="width: 80px; height: 80px; bottom: 10%; left: 20%;"></div>
+
+<!-- Header with Navigation -->
+<header id="mainHeader">
+  <div class="logo-container">
+    <img src="static/logo.png" alt="Numberblocks Logo" class="site-logo">
+    <h2>Number<span class="highlight">blocks</span></h2>
+  </div>
+  <nav>
+    <a href="https://www.learningblocks.tv/numberblocks/home" class="nav-link">Official page</a>
+    <a href="https://rutube.ru/plst/876025/" target="_blank">
+      <img src="static/rutube.png" alt="Rutube Logo" class="social-icon">
+    </a>
+  </nav>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+  <h2>Watch your favorite <span class="highlight">Numberblocks</span> on RuTube!<br>Say no to VPN and Proxy servers!</h2>
+
+  <div class="season-buttons">
+    <button class="level1" onclick="filterSeason(1)">
+      <i class="fas fa-cubes icon"></i> Level 1
+    </button>
+    <button class="level2" onclick="filterSeason(2)">
+      <i class="fas fa-cubes icon"></i> Level 2
+    </button>
+    <button class="level3" onclick="filterSeason(3)">
+      <i class="fas fa-cubes icon"></i> Level 3
+    </button>
+    <button class="level4" onclick="filterSeason(4)">
+      <i class="fas fa-cubes icon"></i> Level 4
+    </button>
+    <button class="level5" onclick="filterSeason(5)">
+      <i class="fas fa-cubes icon"></i> Level 5
+    </button>
+  </div>
+</section>
+
+<!-- Episodes Section -->
+<div class="episodes-wrapper">
+  <!-- Level 1 -->
+
+  <a href="episodes/s-one-e-one.html" class="episode" data-season="1">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a0fa68ad4af8ee232e336f_NB_RED_01__STORYART.webp" alt="One">
+    <div class="episode-title">One</div>
+  </a>
+
+  <a href="episodes/s-one-e-two.html" class="episode" data-season="1">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a0fa713d89185ba3c4754e_NB_RED_02__STORYART.webp" alt="Another One">
+    <div class="episode-title">Another One</div>
+  </a>
+
+  <a href="episodes/s-one-e-three.html" class="episode" data-season="1">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a0fa96e5c2bc059654f766_NB_RED_03__STORYART.avif" alt="Two">
+    <div class="episode-title">Two</div>
+  </a>
+
+  <a href="episodes/s-one-e-four.html" class="episode" data-season="1">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a0faa274252a2082dde557_NB_RED_04__STORYART.webp" alt="Three">
+    <div class="episode-title">Three</div>
+  </a>
+
+  <a href="episodes/s-one-e-five.html" class="episode" data-season="1">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a0fab43d891867fac47788_NB_RED_05__STORYART.webp" alt="One, Two, Three">
+    <div class="episode-title">One, Two, Three</div>
+  </a>
+
+  <a href="episodes/s-one-e-six.html" class="episode" data-season="1">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a0fabe8f37140f6ab9dcb8_NB_RED_06__STORYART.webp" alt="Four">
+    <div class="episode-title">Four</div>
+  </a>
+
+  <a href="episodes/s-one-e-seven.html" class="episode" data-season="1">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a0fac8e5c2bc601f54f784_NB_RED_07__STORYART.webp" alt="Five">
+    <div class="episode-title">Five</div>
+  </a>
+
+  <a href="episodes/s-one-e-eight.html" class="episode" data-season="1">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a0fad15c8f59026e6f0d22_NB_RED_08__STORYART.webp" alt="Three Little Pigs">
+    <div class="episode-title">Three Little Pigs</div>
+  </a>
+
+  <a href="episodes/s-one-e-nine.html" class="episode" data-season="1">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a0fadc5c8f5987af6f0d2e_NB_RED_09__STORYART.webp" alt="Off we go!">
+    <div class="episode-title">Off we go!</div>
+  </a>
+
+  <a href="episodes/s-one-e-ten.html" class="episode" data-season="1">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a0faf0f951cdeff7c0bae4_NB_RED_10__STORYART.avif" alt="How to Count">
+    <div class="episode-title">How to Count</div>
+  </a>
+
+  <a href="episodes/s-one-e-eleven.html" class="episode" data-season="1">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a0fb00d9507df035cdf7fe_NB_RED_11__STORYART.webp" alt="Stampolines">
+    <div class="episode-title">Stampolines</div>
+  </a>
+
+  <a href="episodes/s-one-e-twelve.html" class="episode" data-season="1">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a0fb0bad23e23c1878e414_NB_RED_12__STORYART.avif" alt="The Whole of Me">
+    <div class="episode-title">The Whole of Me</div>
+  </a>
+
+  <a href="episodes/s-one-e-thirteen.html" class="episode" data-season="1">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a0fb334f5629b925b3672b_NB_RED_13__STORYART.webp" alt="The Terrible Twos">
+    <div class="episode-title">The Terrible Twos</div>
+  </a>
+
+  <a href="episodes/s-one-e-fourteen.html" class="episode" data-season="1">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a0fb3d4e67736f013c6645_NB_RED_14__STORYART.webp" alt="Holes">
+    <div class="episode-title">Holes</div>
+  </a>
+
+  <a href="episodes/s-one-e-fifteen.html" class="episode" data-season="1">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a0fb47deccc37ab8180b32_NB_RED_15__STORYART.webp" alt="Hide and Seek">
+    <div class="episode-title">Hide and Seek</div>
+  </a>
+
+  <a href="episodes/s-one-e-sixteen.html" class="episode" data-season="1">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a0fb52c8291d071408ce00_NB_RED_16__STORYART.webp" alt="Once Upon a Time">
+    <div class="episode-title">Once Upon a Time</div>
+  </a>
+
+  <a href="episodes/s-one-e-seventeen.html" class="episode" data-season="1">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a0fb66798f2d432536d185_NB_RED_17__STORYART.avif" alt="Blockzilla">
+    <div class="episode-title">Blockzilla</div>
+  </a>
+
+  <a href="episodes/s-one-e-eighteen.html" class="episode" data-season="1">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a0fb71fc102c20a979a696_NB_RED_18__STORYART.avif" alt="The Numberblocks Express">
+    <div class="episode-title">The Numberblocks Express</div>
+  </a>
+
+  <a href="episodes/s-one-e-nineteen.html" class="episode" data-season="1">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a0fb822b111d6ddc1d64b3_NB_RED_19__STORYART.webp" alt="Fruit Salad">
+    <div class="episode-title">Fruit Salad</div>
+  </a>
+
+  <a href="episodes/s-one-e-twenty.html" class="episode" data-season="1">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a0fb8ed9507d9cdecdfc47_NB_RED_20__STORYART.webp" alt="Zero">
+    <div class="episode-title">Zero</div>
+  </a>
+
+  <!-- Level 2 -->
+  <a href="episodes/s-two-e-one.html" class="episode" data-season="2">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a1117606fdbcfe47ca5c8e_NB_ORA_01__STORYART.avif" alt="Six">
+    <div class="episode-title">Six</div>
+  </a>
+
+  <a href="episodes/s-two-e-two.html" class="episode" data-season="2">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4a260fa85336f1d385a2b_NB_ORA_02__STORYART.webp" alt="Seven">
+    <div class="episode-title">Seven</div>
+  </a>
+
+  <a href="episodes/s-two-e-three.html" class="episode" data-season="2">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4a51464332f7ef728ec2e_NB_ORA_03__STORYART.webp" alt="Eight">
+    <div class="episode-title">Eight</div>
+  </a>
+
+  <a href="episodes/s-two-e-four.html" class="episode" data-season="2">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4af42bd6c574bd01a4424_NB_ORA_04__STORYART.webp" alt="Nine">
+    <div class="episode-title">Nine</div>
+  </a>
+
+  <a href="episodes/s-two-e-five.html" class="episode" data-season="2">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4afa676cc55e70222f604_NB_ORA_05__STORYART.webp" alt="Ten">
+    <div class="episode-title">Ten</div>
+  </a>
+
+  <a href="episodes/s-two-e-six.html" class="episode" data-season="2">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4b05e1ff692861949045a_NB_ORA_06__STORYART.webp" alt="Just Add One">
+    <div class="episode-title">Just Add One</div>
+  </a>
+
+  <a href="episodes/s-two-e-seven.html" class="episode" data-season="2">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4b07e17e8c9adc23ed015_NB_ORA_07__STORYART.webp" alt="Ten Green Bottles">
+    <div class="episode-title">Ten Green Bottles</div>
+  </a>
+  <a href="episodes/s-two-e-eight.html" class="episode" data-season="2">
+    <img src="preview/NB_ORA_08__STORYART.webp" alt="Counting Sheep">
+    <div class="episode-title">Counting Sheep</div>
+  </a>
+  <a href="episodes/s-two-e-nine.html" class="episode" data-season="2">
+    <img src="preview/NB_ORA_09__STORYART.webp" alt="Double Trouble">
+    <div class="episode-title">Double Trouble</div>
+  </a>
+
+  <a href="episodes/s-two-e-ten.html" class="episode" data-season="2">
+    <img src="preview/NB_ORA_10__STORYART.webp" alt="The Three Threes">
+    <div class="episode-title">The Three Threes</div>
+  </a>
+
+  <a href="episodes/s-two-e-eleven.html" class="episode" data-season="2">
+    <img src="preview/NB_ORA_11__STORYART.webp" alt="Odds And Evens">
+    <div class="episode-title">Odds And Evens</div>
+  </a>
+
+  <a href="episodes/s-two-e-twelve.html" class="episode" data-season="2">
+    <img src="preview/NB_ORA_12__STORYART.webp" alt="Fluffies">
+    <div class="episode-title">Fluffies</div>
+  </a>
+
+  <a href="episodes/s-two-e-thirteen.html" class="episode" data-season="2">
+    <img src="preview/NB_ORA_13__STORYART.webp" alt="Blast Off">
+    <div class="episode-title">Blast Off</div>
+  </a>
+
+  <a href="episodes/s-two-e-fourteen.html" class="episode" data-season="2">
+    <img src="preview/NB_ORA_14__STORYART.avif" alt="The Two Tree">
+    <div class="episode-title">The Two Tree</div>
+  </a>
+
+  <a href="episodes/s-two-e-fifteen.html" class="episode" data-season="2">
+    <img src="preview/NB_ORA_15__STORYART.avif" alt="Numberblocks Castle">
+    <div class="episode-title">Numberblocks Castle</div>
+  </a>
+
+  <a href="episodes/s-two-e-sixteen.html" class="episode" data-season="2">
+    <img src="preview/NB_ORA_16__STORYART.webp" alt="Now We Are Six to Ten">
+    <div class="episode-title">Now We Are Six to Ten</div>
+  </a>
+
+  <a href="episodes/s-two-e-seventeen.html" class="episode" data-season="2">
+    <img src="preview/NB_ORA_17__STORYART.webp" alt="Numberblobs">
+    <div class="episode-title">Numberblobs</div>
+  </a>
+
+  <a href="episodes/s-two-e-eighteen.html" class="episode" data-season="2">
+    <img src="preview/NB_ORA_18__STORYART.webp" alt="Building Blocks">
+    <div class="episode-title">Building Blocks</div>
+  </a>
+
+  <a href="episodes/s-two-e-nineteen.html" class="episode" data-season="2">
+    <img src="preview/NB_ORA_19__STORYART.webp" alt="Peekaboo">
+    <div class="episode-title">Peekaboo</div>
+  </a>
+
+  <a href="episodes/s-two-e-twenty.html" class="episode" data-season="2">
+    <img src="preview/NB_ORA_20__STORYART.avif" alt="Hiccups">
+    <div class="episode-title">Hiccups</div>
+  </a>
+
+  <a href="episodes/s-two-e-twenty-one.html" class="episode" data-season="2">
+    <img src="preview/NB_ORA_21__STORYART.webp" alt="Whats The Difference">
+    <div class="episode-title">Whats The Difference</div>
+  </a>
+
+  <a href="episodes/s-two-e-twenty-two.html" class="episode" data-season="2">
+    <img src="preview/NB_ORA_22__STORYART.webp" alt="Numberblock Rally">
+    <div class="episode-title">Numberblock Rally</div>
+  </a>
+
+  <a href="episodes/s-two-e-twenty-three.html" class="episode" data-season="2">
+    <img src="preview/NB_ORA_23__STORYART.webp" alt="Five and Friends">
+    <div class="episode-title">Five and Friends</div>
+  </a>
+
+  <a href="episodes/s-two-e-twenty-four.html" class="episode" data-season="2">
+    <img src="preview/NB_ORA_24__STORYART.webp" alt="Octoblock To The Rescue">
+    <div class="episode-title">Octoblock To The Rescue</div>
+  </a>
+
+  <a href="episodes/s-two-e-twenty-five.html" class="episode" data-season="2">
+    <img src="preview/NB_ORA_25__STORYART.webp" alt="Ten Again">
+    <div class="episode-title">Ten Again</div>
+  </a>
+
+  <a href="episodes/s-two-e-twenty-six.html" class="episode" data-season="2">
+    <img src="preview/NB_ORA_26__STORYART.webp" alt="Flatland">
+    <div class="episode-title">Flatland</div>
+  </a>
+
+  <a href="episodes/s-two-e-twenty-seven.html" class="episode" data-season="2">
+    <img src="preview/NB_ORA_27__STORYART.webp" alt="Pattern Palace">
+    <div class="episode-title">Pattern Palace</div>
+  </a>
+
+  <a href="episodes/s-two-e-twenty-eight.html" class="episode" data-season="2">
+    <img src="preview/NB_ORA_28__STORYART.webp" alt="The Legend of Big Tum">
+    <div class="episode-title">The Legend of Big Tum</div>
+  </a>
+
+  <a href="episodes/s-two-e-twenty-nine.html" class="episode" data-season="2">
+    <img src="preview/NB_ORA_29__STORYART.avif" alt="Mirror Mirror">
+    <div class="episode-title">Mirror Mirror</div>
+  </a>
+
+  <a href="episodes/s-two-e-thirty.html" class="episode" data-season="2">
+    <img src="preview/NB_ORA_30__STORYART.webp" alt="The Wrong Number">
+    <div class="episode-title">The Wrong Number</div>
+  </a>
+
+  <!-- Season 3 -->
+  <a href="episodes/s-three-e-one.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4b935fdc9a9cd04f49cf6_NB_YELOW_01__STORYART-min.avif" alt="Eleven">
+    <div class="episode-title">Eleven</div>
+  </a>
+  <a href="episodes/s-three-e-two.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4b9691cc1222c7834c479_NB_YELOW_02__STORYART-min.avif" alt="Twelve">
+    <div class="episode-title">Twelve</div>
+  </a>
+  <a href="episodes/s-three-e-three.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4b9a47f18517a811ea1f7_NB_YELOW_03__STORYART-min.avif" alt="The Way of the Rectangle">
+    <div class="episode-title">The Way of the Rectangle</div>
+  </a>
+  <a href="episodes/s-three-e-four.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4b9d574ba6f231772ded8_NB_YELOW_04__STORYART-min.avif" alt="Ride the Rays">
+    <div class="episode-title">Ride the Rays</div>
+  </a>
+  <a href="episodes/s-three-e-five.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4ba08a4fc1fe2bbf887ca_NB_YELOW_05__STORYART-min.avif" alt="Blockstars">
+    <div class="episode-title">Blockstars</div>
+  </a>
+  <a href="episodes/s-three-e-six.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4bafa4bfc890be0539e6a_NB_YELOW_06__STORYART-min.avif" alt="Thirteen">
+    <div class="episode-title">Thirteen</div>
+  </a>
+  <a href="episodes/s-three-e-seven.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4bb29f5bc130b896a4b33_NB_YELOW_07__STORYART-min.avif" alt="Fourteen">
+    <div class="episode-title">Fourteen</div>
+  </a>
+  <a href="episodes/s-three-e-eight.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4bb56ecbfbf1c5a65f7a2_NB_YELOW_08__STORYART-min.avif" alt="Fifteen">
+    <div class="episode-title">Fifteen</div>
+  </a>
+  <a href="episodes/s-three-e-nine.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4bb85d8897daa59e39d00_NB_YELOW_09__STORYART-min.avif" alt="Tween Scenes">
+    <div class="episode-title">Tween Scenes</div>
+  </a>
+  <a href="episodes/s-three-e-ten.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4bbc592c0eb0ca7b5fac3_NB_YELOW_10__STORYART-min.avif" alt="Step Squads">
+    <div class="episode-title">Step Squads</div>
+  </a>
+  <a href="episodes/s-three-e-eleven.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4bc017f6b5c14d56a943e_NB_YELOW_11__STORYART-min.avif" alt="Fifteen's Minute of Fame">
+    <div class="episode-title">Fifteen's Minute of Fame</div>
+  </a>
+  <a href="episodes/s-three-e-twelve.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4bd79a29f004ae1e56f09_NB_YELOW_12__STORYART-min.avif" alt="Of Your Head">
+    <div class="episode-title">Of Your Head</div>
+  </a>
+  <a href="episodes/s-three-e-thirteen.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4bdcfdfe9186957fcabea_NB_YELOW_13__STORYART-min.avif" alt="Ten's Place">
+    <div class="episode-title">Ten's Place</div>
+  </a>
+  <a href="episodes/s-three-e-fourteen.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4be20e47531678c7b73a8_NB_YELOW_14__STORYART-min.avif" alt="Balancing Bridge">
+    <div class="episode-title">Balancing Bridge</div>
+  </a>
+  <a href="episodes/s-three-e-fifteen.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4bed6e3be132573d3acaa_NB_YELOW_15__STORYART-min.avif" alt="Sixteen">
+    <div class="episode-title">Sixteen</div>
+  </a>
+  <a href="episodes/s-three-e-sixteen.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4bf05282b445fc10702f9_NB_YELOW_16__STORYART-min.avif" alt="Square Club">
+    <div class="episode-title">Square Club</div>
+  </a>
+  <a href="episodes/s-three-e-seventeen.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4bf3c782cc9094c911fc9_NB_YELOW_17__STORYART-min.avif" alt="Seventeen">
+    <div class="episode-title">Seventeen</div>
+  </a>
+  <a href="episodes/s-three-e-eighteen.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4bf7106fdbc8907b0211f_NB_YELOW_18__STORYART-min.avif" alt="Eighteen">
+    <div class="episode-title">Eighteen</div>
+  </a>
+  <a href="episodes/s-three-e-nineteen.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4bfa6bd6c5743301a775e_NB_YELOW_19__STORYART-min.avif" alt="Loop the Loop">
+    <div class="episode-title">Loop the Loop</div>
+  </a>
+  <a href="episodes/s-three-e-twelve.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4bfe054ac0fb31896937c_NB_YELOW_20__STORYART-min.avif" alt="Nineteen">
+    <div class="episode-title">Nineteen</div>
+  </a>
+  <a href="episodes/s-three-e-twenty-one.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4c033dbc06d53f3ce08c5_NB_YELOW_21__STORYART-min.avif" alt="Twenty">
+    <div class="episode-title">Twenty</div>
+  </a>
+  <a href="episodes/s-three-e-twenty-two.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4c07fedd7ab952c155349_NB_YELOW_22__STORYART-min.avif" alt="Tall Stories">
+    <div class="episode-title">Tall Stories</div>
+  </a>
+  <a href="episodes/s-three-e-twenty-three.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4c0cc06fdbcdc7ab021bf_NB_YELOW_23__STORYART-min.avif" alt="Flights of Fancy">
+    <div class="episode-title">Flights of Fancy</div>
+  </a>
+  <a href="episodes/s-three-e-twenty-four.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4c182c859ff9e9a0dda4e_NB_YELOW_24__STORYART-min.avif" alt="I Can Count to Twenty">
+    <div class="episode-title">I Can Count to Twenty</div>
+  </a>
+  <a href="episodes/s-three-e-twenty-five.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4c1be9215d91662fd4534_NB_YELOW_25__STORYART-min.avif" alt="Heist">
+    <div class="episode-title">Heist</div>
+  </a>
+  <a href="episodes/s-three-e-twenty-six.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4c20498d8cacb5d3b0d7d_NB_YELOW_26__STORYART-min.avif" alt="Sign of the Times">
+    <div class="episode-title">Sign of the Times</div>
+  </a>
+  <a href="episodes/s-three-e-twenty-seven.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4c2530448cc47974195b7_NB_YELOW_27__STORYART-min.avif" alt="Fun Times Fair">
+    <div class="episode-title">Fun Times Fair</div>
+  </a>
+  <a href="episodes/s-three-e-twenty-eight.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4c2aa2f51b2070ac77edf_NB_YELOW_28__STORYART-min.avif" alt="The Lair of Shares">
+    <div class="episode-title">The Lair of Shares</div>
+  </a>
+  <a href="episodes/s-three-e-twenty-nine.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4c2f661688d5fd3049837_NB_YELOW_29__STORYART-min.avif" alt="Terrible Twosday">
+    <div class="episode-title">Terrible Twosday</div>
+  </a>
+  <a href="episodes/s-three-e-thirty.html" class="episode" data-season="3">
+    <img src="https://cdn.prod.website-files.com/5ebbbacd07f0f1a942ac30dc/61a4c326e3be1381bcd7da2b_NB_YELOW_30__STORYART-min.avif" alt="Divide and Drive">
+    <div class="episode-title">Divide and Drive</div>
+  </a>
+  <!-- Season 4 -->
+  <a href="episodes/s-four-e-one.html" class="episode" data-season="4">
+    <img src="https://example.com/s4e1.jpg" alt="Sixteen">
+    <div class="episode-title">Sixteen</div>
+  </a>
+
+  <!-- Season 5 -->
+  <a href="episodes/s-five-e-one.html" class="episode" data-season="5">
+    <img src="https://example.com/s5e1.jpg" alt="Twenty-One">
+    <div class="episode-title">Twenty-One</div>
+  </a>
+
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="warning">
+    The videos on this site are collected from various sources (official sources are attached to the materials!)
+    We are not responsible for the content.
+  </div>
+  <div class="copyright">
+    © 2025 English For Kids. All rights reserved. Made with <i class="fas fa-heart" style="color: #FF6B6B;"></i> for kids everywhere.
+  </div>
+</footer>
+
+<script>
+  // Header scroll effect
+  window.addEventListener('scroll', function() {
+    const header = document.getElementById('mainHeader');
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+
+  // Create dynamic bubbles
+  function createBubbles() {
+    const colors = ['rgba(255, 107, 107, 0.1)', 'rgba(78, 205, 196, 0.1)', 'rgba(255, 230, 109, 0.1)'];
+    const body = document.body;
+
+    for (let i = 0; i < 10; i++) {
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+
+      const size = Math.random() * 100 + 50;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+
+      bubble.style.width = `${size}px`;
+      bubble.style.height = `${size}px`;
+      bubble.style.background = color;
+      bubble.style.top = `${Math.random() * 100}%`;
+      bubble.style.left = `${Math.random() * 100}%`;
+      bubble.style.animationDuration = `${Math.random() * 20 + 10}s`;
+      bubble.style.animationDelay = `${Math.random() * 5}s`;
+
+      body.appendChild(bubble);
+    }
+  }
+
+  // Filter episodes by season
+  function filterSeason(season) {
+    const episodes = document.querySelectorAll('.episode');
+    episodes.forEach(ep => {
+      ep.style.display = (ep.dataset.season === season.toString()) ? 'block' : 'none';
+    });
+
+    // Scroll to episodes section
+    document.querySelector('.episodes-wrapper').scrollIntoView({
+      behavior: 'smooth'
+    });
+  }
+
+  // Initialize everything
+  document.addEventListener('DOMContentLoaded', function() {
+    createBubbles();
+    filterSeason(1); // Show first season by default
+  });
+</script>
+</body>
+</html>
