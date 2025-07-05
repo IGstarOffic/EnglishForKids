@@ -12,45 +12,47 @@
       --primary-light: #FF9E9E;
       --secondary: #4ECDC4;
       --secondary-light: #7FE0D9;
-      --accent: #FFE66D;
-      --accent-dark: #FFD700;
-      
+      --accent-dark: #FFE66D;
+      --accent-light: #FF6B6B; /* Новый акцентный цвет для светлой темы */
+
       /* Light theme colors */
-      --bg-light: #F7FFF7;
-      --bg-secondary-light: #FFFFFF;
+      --bg-light: linear-gradient(rgba(127, 224, 217, 0.25), rgba(255, 158, 158, 0.25));
+      --bg-secondary-light: #f5f5f5;
       --text-light: #292F36;
       --text-secondary-light: #3D4752;
-      --card-light: #FFFFFF;
-      
+      --card-light: #ffffff;
+
       /* Dark theme colors */
       --bg-dark: #121212;
       --bg-secondary-dark: #1E1E1E;
       --text-dark: #E0E0E0;
       --text-secondary-dark: #B0B0B0;
       --card-dark: #2D2D2D;
-      
-      /* Current theme variables - default to light */
-      --bg: var(--bg-light);
-      --bg-secondary: var(--bg-secondary-light);
-      --text: var(--text-light);
-      --text-secondary: var(--text-secondary-light);
-      --card: var(--card-light);
-      
-      --shadow: 0 4px 6px rgba(0,0,0,0.1);
-      --shadow-hover: 0 8px 15px rgba(0,0,0,0.2);
+
+      /* Current theme variables - default to dark */
+      --bg: var(--bg-dark);
+      --bg-secondary: var(--bg-secondary-dark);
+      --text: var(--text-dark);
+      --text-secondary: var(--text-secondary-dark);
+      --card: var(--card-dark);
+      --accent: var(--accent-dark);
+
+      --shadow: 0 4px 6px rgba(0,0,0,0.3);
+      --shadow-hover: 0 8px 15px rgba(0,0,0,0.4);
     }
 
-    /* Dark theme preference */
-    @media (prefers-color-scheme: dark) {
+    /* Light theme preference */
+    @media (prefers-color-scheme: light) {
       :root {
-        --bg: var(--bg-dark);
-        --bg-secondary: var(--bg-secondary-dark);
-        --text: var(--text-dark);
-        --text-secondary: var(--text-secondary-dark);
-        --card: var(--card-dark);
-        
-        --shadow: 0 4px 6px rgba(0,0,0,0.3);
-        --shadow-hover: 0 8px 15px rgba(0,0,0,0.4);
+        --bg: var(--bg-light);
+        --bg-secondary: var(--bg-secondary-light);
+        --text: var(--text-light);
+        --text-secondary: var(--text-secondary-light);
+        --card: var(--card-light);
+        --accent: var(--accent-light);
+
+        --shadow: 0 4px 6px rgba(0,0,0,0.1);
+        --shadow-hover: 0 8px 15px rgba(0,0,0,0.2);
       }
     }
 
@@ -364,6 +366,13 @@
       max-width: 1000px;
       margin: 0 auto;
       position: relative;
+      overflow: hidden;
+    }
+
+    .testimonial-slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      will-change: transform;
     }
 
     .testimonial-slide {
@@ -371,19 +380,14 @@
       border-radius: 20px;
       padding: 2.5rem;
       box-shadow: var(--shadow);
-      margin: 0 1rem;
+      min-width: 100%;
       position: relative;
-      display: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
     }
 
     .testimonial-slide.active {
-      display: block;
-      animation: fadeIn 0.5s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      opacity: 1;
     }
 
     .testimonial-slide::before {
@@ -413,6 +417,40 @@
     .testimonial-rating {
       color: var(--accent-dark);
       margin-bottom: 1rem;
+    }
+
+    .testimonial-nav {
+      display: flex;
+      justify-content: center;
+      margin-top: 2rem;
+      gap: 2rem;
+    }
+
+    .testimonial-nav button {
+      background: transparent;
+      border: none;
+      width: 40px;
+      height: 40px;
+      color: var(--text);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .testimonial-nav button:hover {
+      color: var(--primary);
+      transform: scale(1.2);
+    }
+
+    .testimonial-nav button:disabled {
+      color: var(--text-secondary);
+      cursor: not-allowed;
+      transform: none;
+      opacity: 0.5;
     }
 
     /* Footer */
@@ -546,6 +584,10 @@
       .hero p {
         font-size: 1.2rem;
       }
+
+      .feature-card {
+        padding: 1.8rem;
+      }
     }
 
     @media (max-width: 768px) {
@@ -586,6 +628,19 @@
         font-size: 1rem;
         min-width: 180px;
       }
+
+      .testimonial-slide {
+        padding: 1.5rem;
+      }
+
+      .testimonial-nav {
+        gap: 1.5rem;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
     }
 
     @media (max-width: 576px) {
@@ -606,17 +661,50 @@
       .floating {
         display: none;
       }
-      
+
       .bubble {
         display: none;
       }
-      
+
       .feature-card {
         padding: 1.5rem;
       }
-      
-      .testimonial-slide {
-        padding: 1.5rem;
+
+      .testimonial-nav button {
+        width: 36px;
+        height: 36px;
+        font-size: 1.3rem;
+      }
+
+      .footer-column h3 {
+        font-size: 1.3rem;
+      }
+
+      .footer-social img {
+        width: 36px;
+        height: 36px;
+      }
+
+      .fab {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        right: 20px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .hero h2 {
+        font-size: 1.6rem;
+      }
+
+      .btn {
+        min-width: 160px;
+        padding: 0.8rem 1.5rem;
+      }
+
+      .feature-card {
+        padding: 1.2rem;
       }
     }
   </style>
@@ -687,46 +775,57 @@
   <h2 style="font-size: 2.5rem; margin-bottom: 3rem;">What Parents <span class="highlight">Say</span></h2>
 
   <div class="testimonial-container">
-    <!-- Positive Testimonials -->
-    <div class="testimonial-slide">
-      <div class="testimonial-rating">
-        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+    <div class="testimonial-slides" id="testimonialSlides">
+      <!-- Positive Testimonials -->
+      <div class="testimonial-slide active">
+        <div class="testimonial-rating">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+        <p class="testimonial-text">My 11-year-old asks to "play English" every day! The Numberblocks section has helped her learn counting in English faster than I ever imagined.</p>
+        <p class="testimonial-author">— Irina L., Stupino</p>
       </div>
-      <p class="testimonial-text">My 11-year-old asks to "play English" every day! The Numberblocks section has helped her learn counting in English faster than I ever imagined.</p>
-      <p class="testimonial-author">— Irina L., Stupino</p>
+
+      <div class="testimonial-slide">
+        <div class="testimonial-rating">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+        <p class="testimonial-text">My 5-year-old was afraid of English lessons at kindergarten, but after discovering your videos, he's now the most active in class! The colorful animations and simple explanations work wonders.</p>
+        <p class="testimonial-author">— Olga K., St. Petersburg</p>
+      </div>
+
+      <div class="testimonial-slide">
+        <div class="testimonial-rating">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+        <p class="testimonial-text">As an English teacher, I recommend this to all my students' parents. The way complex concepts are broken down into child-friendly chunks is exceptional. My own kids love it too!</p>
+        <p class="testimonial-author">— Elena S., Novosibirsk</p>
+      </div>
+
+      <div class="testimonial-slide">
+        <div class="testimonial-rating">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+        </div>
+        <p class="testimonial-text">We've tried many English apps, but this one stands out. My twins (7 years old) actually argue over who gets to choose the next video! Would love to see more advanced content for older kids.</p>
+        <p class="testimonial-author">— Dmitry P., Kazan</p>
+      </div>
+
+      <!-- Constructive Feedback -->
+      <div class="testimonial-slide">
+        <div class="testimonial-rating">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+        </div>
+        <p class="testimonial-text">Great concept and my daughter enjoys the videos. However, we sometimes experience buffering issues with the videos. Also, it would be helpful to have progress tracking for parents to monitor learning.</p>
+        <p class="testimonial-author">— Anna M., Yekaterinburg</p>
+      </div>
     </div>
 
-    <div class="testimonial-slide">
-      <div class="testimonial-rating">
-        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-      </div>
-      <p class="testimonial-text">My 5-year-old was afraid of English lessons at kindergarten, but after discovering your videos, he's now the most active in class! The colorful animations and simple explanations work wonders.</p>
-      <p class="testimonial-author">— Olga K., St. Petersburg</p>
-    </div>
-
-    <div class="testimonial-slide">
-      <div class="testimonial-rating">
-        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-      </div>
-      <p class="testimonial-text">As an English teacher, I recommend this to all my students' parents. The way complex concepts are broken down into child-friendly chunks is exceptional. My own kids love it too!</p>
-      <p class="testimonial-author">— Elena S., Novosibirsk</p>
-    </div>
-
-    <div class="testimonial-slide">
-      <div class="testimonial-rating">
-        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-      </div>
-      <p class="testimonial-text">We've tried many English apps, but this one stands out. My twins (7 years old) actually argue over who gets to choose the next video! Would love to see more advanced content for older kids.</p>
-      <p class="testimonial-author">— Dmitry P., Kazan</p>
-    </div>
-
-    <!-- Constructive Feedback -->
-    <div class="testimonial-slide">
-      <div class="testimonial-rating">
-        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
-      </div>
-      <p class="testimonial-text">Great concept and my daughter enjoys the videos. However, we sometimes experience buffering issues with the videos. Also, it would be helpful to have progress tracking for parents to monitor learning.</p>
-      <p class="testimonial-author">— Anna M., Yekaterinburg</p>
+    <div class="testimonial-nav">
+      <button id="prevTestimonial" aria-label="Previous testimonial">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button id="nextTestimonial" aria-label="Next testimonial">
+        <i class="fas fa-chevron-right"></i>
+      </button>
     </div>
   </div>
 </section>
@@ -808,42 +907,95 @@
     }
   }
 
-  // Testimonial rotation
-  function rotateTestimonials() {
-    const testimonials = document.querySelectorAll('.testimonial-slide');
-    let current = 0;
-
-    // Show first testimonial
-    testimonials[0].classList.add('active');
-
-    // Rotate every 5 seconds
-    setInterval(() => {
-      testimonials[current].classList.remove('active');
-      current = (current + 1) % testimonials.length;
-      testimonials[current].classList.add('active');
-    }, 5000);
-  }
-
-  // Randomize testimonial order on page load
-  function randomizeTestimonials() {
-    const container = document.querySelector('.testimonial-container');
-    const testimonials = Array.from(document.querySelectorAll('.testimonial-slide'));
-
-    // Shuffle array
-    for (let i = testimonials.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [testimonials[i], testimonials[j]] = [testimonials[j], testimonials[i]];
-    }
-
-    // Reappend shuffled testimonials
-    testimonials.forEach(testimonial => container.appendChild(testimonial));
-  }
-
-  // Initialize everything
+  // Testimonial Slider
   document.addEventListener('DOMContentLoaded', function() {
     createBubbles();
-    randomizeTestimonials();
-    rotateTestimonials();
+
+    const slides = document.querySelectorAll('.testimonial-slide');
+    const slidesContainer = document.getElementById('testimonialSlides');
+    const prevBtn = document.getElementById('prevTestimonial');
+    const nextBtn = document.getElementById('nextTestimonial');
+
+    let currentSlide = 0;
+    let autoSlideInterval;
+    const slideCount = slides.length;
+
+    // Update slides
+    function updateSlider() {
+      slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+      // Update active class on slides
+      slides.forEach((slide, index) => {
+        if (index === currentSlide) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+
+      // Update button states
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === slideCount - 1;
+    }
+
+    // Next slide
+    function nextSlide() {
+      if (currentSlide < slideCount - 1) {
+        currentSlide++;
+        updateSlider();
+      }
+      resetAutoSlide();
+    }
+
+    // Previous slide
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlider();
+      }
+      resetAutoSlide();
+    }
+
+    // Auto slide
+    function startAutoSlide() {
+      autoSlideInterval = setInterval(() => {
+        if (currentSlide === slideCount - 1) {
+          currentSlide = 0;
+        } else {
+          currentSlide++;
+        }
+        updateSlider();
+      }, 5000);
+    }
+
+    // Reset auto slide timer
+    function resetAutoSlide() {
+      clearInterval(autoSlideInterval);
+      startAutoSlide();
+    }
+
+    // Event listeners
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+    // Initialize
+    updateSlider();
+    startAutoSlide();
+
+    // Pause auto slide on hover
+    slidesContainer.addEventListener('mouseenter', () => {
+      clearInterval(autoSlideInterval);
+    });
+
+    slidesContainer.addEventListener('mouseleave', () => {
+      startAutoSlide();
+    });
   });
 </script>
 </body>
